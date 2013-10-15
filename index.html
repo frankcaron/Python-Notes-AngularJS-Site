@@ -1,14 +1,25 @@
 <!doctype html>
 <html ng-app>
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
-    <div>
-      <label>Name:</label>
-      <input type="text" ng-model="yourName" placeholder="Enter a name here">
-      <hr>
-      <h1>Hello {{yourName}}!</h1>
+    <div ng-controller="BuzzController">
+      <input ng-model="userId"/>
+      <button ng-click="fetch()">fetch</button>
+      <hr/>
+      <div ng-repeat="item in activities.data.items">
+        <h1 style="font-size: 15px;">
+          <img src="{{item.actor.thumbnailUrl}}" style="max-height:30px;max-width:30px;"/>
+          <a href="{{item.actor.profileUrl}}">{{item.actor.name}}</a>
+          <a href ng-click="expandReplies(item)" style="float: right;">Expand replies: {{item.links.replies[0].count}}</a>
+        </h3>
+        {{item.object.content | html}}
+        <div ng-repeat="reply in item.replies.data.items" style="margin-left: 20px;">
+          <img src="{{reply.actor.thumbnailUrl}}" style="max-height:30px;max-width:30px;"/>
+          <a href="{{reply.actor.profileUrl}}">{{reply.actor.name}}</a>: {{reply.content | html}}
+        </div>
+      </div>
     </div>
-  </body>
-</html>
+  </body
